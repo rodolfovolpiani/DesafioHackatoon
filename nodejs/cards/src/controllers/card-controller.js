@@ -27,17 +27,15 @@ api.save = (request, response) => {
     })
 }
 
-api.paginationAndSorting = (request, response) => {
-    neDB.find({embossName: {}}).sort({ documentNumber: 1 }).exec((exception, pagination) => {
+api.delete = (request, response) => {
+    neDB.remove({ cardNumber: {} }, {}, (exception, cards) => {
         if(exception) {
-            const setence = 'Opa, deu ruim na tentativa de listar todos os cards!!!'
-            console.log(setence, exception)
-            response.status(exception.status | 400)
-            response.json({'mensagem' : setence})
+            console.log('Não foi deletado', exception)
         }
-
         response.json(cards)
+        response.status(202)
     })
+
 }
        
 
