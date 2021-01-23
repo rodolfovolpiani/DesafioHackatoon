@@ -27,6 +27,22 @@ api.save = (request, response) => {
     })
 }
 
+api.paginationAndSorting = (request, response) => {
+    neDB.find({embossName: {}}).sort({ documentNumber: 1 }).exec((exception, pagination) => {
+        if(exception) {
+            const setence = 'Opa, deu ruim na tentativa de listar todos os cards!!!'
+            console.log(setence, exception)
+            response.status(exception.status | 400)
+            response.json({'mensagem' : setence})
+        }
+
+        response.json(cards)
+    })
+}
+       
+
+
+
 
 
 
