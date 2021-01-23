@@ -1,0 +1,39 @@
+package com.orbitallcorp.hack21.cards.service;
+
+
+import com.orbitallcorp.hack21.cards.domains.Card;
+import com.orbitallcorp.hack21.cards.repositories.CardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+@Service
+public class CardService {
+    @Autowired
+    private CardRepository cardRepository;
+
+    public Card save(Card card) {
+        return cardRepository.save((card));
+    }
+
+    public List<Card> findAll() {
+        // O código abaixo é o sugerido pela comunidade Spring Boot:
+        //List<> customers = new ArrayList<>();
+        //customerRepository.findAll().forEach(customers :: add);
+
+        // O código abaixo é a moda antiga, risos!
+        List<Card> card = new ArrayList<Card>();
+        for (Card card : (List<Card>) cardRepository.findAll()) {
+            card.add(card);
+        }
+
+        // O código abaixo força o Iterable para List
+        // return (List<Customer>) repository.findAll();
+
+        return card;
+    }
+}
